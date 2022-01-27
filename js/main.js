@@ -52,3 +52,44 @@ const searchSong = async (track, artist) => {
     return song;
 }
 
+
+/**
+ * @param url 
+ * url = song preview_url
+ * 
+ * Function will play the snippet from url
+ */
+const songSnippet = (url) => {
+    playSong = new Audio(url)
+    playSong.play();
+}
+
+
+/**
+ * NO PARAMS
+ * 
+ * Function will stop song snippet
+ */
+const stopSnippet = () => {
+    playSong.pause();
+}
+
+
+/**
+ * @param figId
+ * 
+ * Function to trigger getting song from spotify and then playing song
+ */
+const clickedFigure = async (figId) => {
+    let image = document.getElementById(figId).children[0];
+    let songInfo = image.alt;
+    let track = songInfo.split(' - ')[0];
+    let artist = songInfo.split(' - ')[1];
+
+    let song = await searchSong(track, artist);
+
+    if (playSong){
+        stopSnippet();
+    }
+    songSnippet(song);
+}
